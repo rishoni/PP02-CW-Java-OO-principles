@@ -1,0 +1,30 @@
+package Hotel;
+
+public class Hotelroom {
+	String Customer;
+	int RoomID;
+	
+	
+	public String getCustomerName(){
+		
+    return Customer;
+	}
+	
+	public int getRoomID(){
+		
+	return RoomID;	
+	}
+	
+    public void setCustomerName(String name){
+    	this.Customer = name;
+    }
+    
+    public void setRoomID(int number){
+    	this.RoomID = number;
+    	
+    	
+    }
+
+	
+}
+

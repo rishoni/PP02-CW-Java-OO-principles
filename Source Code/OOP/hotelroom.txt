@@ -1,0 +1,239 @@
+package main;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
+
+import Hotel.Hotelroom;
+
+public class Main {
+	static Hotelroom emptyrooms[] = new Hotelroom[10];
+	static Hotelroom array[] = new Hotelroom[10];
+
+	public static void main(String[] args) {
+
+		for (int i = 0; i < array.length; i++) {
+			array[i] = new Hotelroom();
+			Hotelroom room = array[i];
+			room.setRoomID(i);
+			room.setCustomerName("");
+
+		}
+
+		Boolean condition = true;
+
+		while (condition) {
+			Scanner sc = new Scanner(System.in);
+
+			System.out.println("E: Display empty rooms");
+			System.out.println("D: Delete customer from room");
+			System.out.println("S: Store data");
+			System.out.println("L: Load program");
+			System.out.println("O: Sort customers");
+			System.out.println("A: Add customer to a room");
+			System.out.println("V: View all rooms");
+			System.out.println("Q: Exit the program");
+			String menu = sc.nextLine();
+
+			switch (menu.toUpperCase()) {
+			case "E":
+
+				displayEmptyRooms(array);
+				break;
+			case "D":
+				Scanner sc1 = new Scanner(System.in);
+				System.out.println("Enter a customer name: ");
+				String cname = sc1.nextLine();
+				deleteCustomer(array, cname);
+
+				break;
+			case "F":
+				findCustomer(array);
+
+				break;
+			case "S":
+				StoreData(array);
+				break;
+			case "L":
+				LoadProgram();
+
+				break;
+			case "O":
+				SortCustomers(array);
+				break;
+			case "A":
+
+				Scanner sc2 = new Scanner(System.in);
+				System.out.println("Enter a customer name: ");
+				String customername = sc2.nextLine();
+				addCustomer(array, customername);
+				break;
+
+			case "Q":
+				condition = false;
+				break;
+			case "V":
+				viewAllRooms(array);
+
+				break;
+			default:
+				System.out.println("Please try again");
+				break;
+
+			}
+
+		}
+		
+		System.out.println("Closing the program");
+	}
+	//Load program data from file
+	public static void LoadProgram(){
+		Scanner in=null;
+		try {
+			in = new Scanner(new File("hotelrooms.txt"));
+			while (in.hasNext()) { // Iterates each line in the file
+			    String line = in.nextLine();
+			    System.out.println(line);
+			    // Do something with line
+			}
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}finally{
+			in.close(); 
+			
+		}
+
+		
+
+		
+		
+	}
+	
+	
+	
+	//Store program data in to file
+	public static void StoreData(Hotelroom[] hotelroomarray){
+		  try {
+	            //Whatever the file path is.
+			    File statText = new File("hotelrooms.txt");
+	            FileOutputStream is = new FileOutputStream(statText);
+	            OutputStreamWriter osw = new OutputStreamWriter(is);    
+	            Writer w = new BufferedWriter(osw);
+	           for (int i = 0; i < hotelroomarray.length; i++) {
+	        	   w.write(hotelroomarray[i].getRoomID() + " : " + hotelroomarray[i].getCustomerName()+"\r\n");
+		            
+			}
+	           w.close();
+	           
+	        } catch (IOException e) {
+	        	e.printStackTrace();
+	           // System.err.println("Problem writing to the file statsTest.txt");
+	        }
+	}
+
+	// find room from customer name
+	public static void findCustomer(Hotelroom[] hotelroomarray) {
+
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter customer name :");
+
+		String customersname;
+
+		customersname = input.nextLine();
+		// input.close();
+		for (int i = 0; i < hotelroomarray.length; i++) {
+			if (hotelroomarray[i].getCustomerName().equals(customersname))
+				System.out.println("room " + i + " is occupied by " + hotelroomarray[i].getCustomerName());
+
+		}
+
+	}
+
+	// sort customers
+	public static void SortCustomers(Hotelroom[] hotelroomarray) {
+		ArrayList<String> Namearray = new ArrayList<String>();
+		ArrayList<Hotelroom> sortedHotelarray = new ArrayList<Hotelroom>();
+		System.out.println("Names are: ");
+		for (int i = 0; i < hotelroomarray.length; i++) {
+			
+			if (!hotelroomarray[i].getCustomerName().equals("")) {
+				Namearray.add(hotelroomarray[i].getCustomerName());
+				
+			}
+
+		}
+		Collections.sort(Namearray);
+		System.out.println(Namearray);
+
+	}
+
+	// Delete customer from room
+	public static void deleteCustomer(Hotelroom[] hotelroomarray, String name) {
+		for (int i = 0; i < hotelroomarray.length; i++)
+			if (hotelroomarray[i].getCustomerName().equals(name)) {
+				hotelroomarray[i].setCustomerName("");
+				System.out.println("Deletion successful.\n");
+				break;
+			} else {
+				System.out.println("Deletion unsucessful cannot find customer");
+			}
+
+		// return false;
+	}
+
+	// view all rooms
+	public static void viewAllRooms(Hotelroom[] hotelroomarray) {
+		Hotelroom room;
+		for (int i = 0; i < hotelroomarray.length; i++) {
+			room = hotelroomarray[i];
+			System.out.println(room.getRoomID() + " : " + room.getCustomerName());
+		}
+	}
+
+	// add customer to a room
+	public static void addCustomer(Hotelroom[] hotelroomarray, String customerName) {
+		Hotelroom room;
+		for (int i = 0; i < hotelroomarray.length; i++) {
+			room = hotelroomarray[i];
+
+			if ((room.getCustomerName() == null) || room.getCustomerName().isEmpty()) {
+
+				room.setCustomerName(customerName);
+				System.out.println(customerName + " is added to room " + room.getRoomID());
+				break;
+			}
+		}
+
+	}
+
+	// Display empty rooms
+	public static void displayEmptyRooms(Hotelroom[] hotelroomarray) {
+
+		int index = 0;
+		String storeemptyrooms = null;
+		for (int i = 0; i < hotelroomarray.length; i++) {
+			Hotelroom room = hotelroomarray[i];
+
+			if (room.getCustomerName() == null || room.getCustomerName().isEmpty()) {
+				storeemptyrooms += "\t" + String.valueOf(room.getRoomID());
+				// emptyrooms[index]=room ;
+				// index++;
+
+			}
+
+		}
+		System.out.println("Empty rooms are: " + storeemptyrooms);
+
+	}
+
+}

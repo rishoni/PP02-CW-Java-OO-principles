@@ -1,0 +1,74 @@
+START
+	SET hotelroomnames to null
+	SET Menu to null
+	SET roomnumber to 1
+	SET hotelroom = new String[11];
+	DO
+	PRINT Welcome to Hotel Amaya reef
+	PRINT Press A to Add a Customer to a room
+	PRINT Press V to View Rooms
+	PRINT Press E to Display Empty rooms
+	PRINT Press D to Delete customer from room
+	PRINT Press F to Find room from customer name
+	PRINT Press S to Store program data in to file
+	PRINT Press L to Load program data from file
+	PRINT Press O to View Rooms Ordered alphabetically by name.
+	PROMT for input
+
+WHILE (roomnumber < 11)
+	IF(input equals “A” )
+		PROPMT for the roomnumber
+		IF roomnumber is valid
+		PROMT for the Customer Name
+		IF Customer Name is valid
+		ADD Customer to the relevant room
+		END IF
+		END IF
+	END IF
+
+	IF(input equals “V” )
+		IF room is empty
+		PRINT EMPTY
+		ELSE PRINT Room is occupied by relevant Customer
+		END IF
+	END IF
+	
+	IF(input equals “E”) 
+		IF room is empty
+		PRINT EMPTY
+		END IF
+	END IF
+		
+	IF(input equals “D”)
+		PROMPT to insert the roomnumber
+		IF roomnumber is valid
+		DELETE records for the relevant room
+		PRINT System updated
+		END IF
+	END IF
+
+	IF(input equals “S”)
+		IF (no Customers added)
+		PRINT no records to save
+		ELSE PRINT records successfully saved
+		END IF
+ 	END IF
+		
+	IF(input equals “L”)
+		Load saved data to Array
+		PRINT Data Successfully Loaded
+	END IF
+	
+	IF(input equals “O”)
+		COMPARE first Customer name with the second Customer
+		 not in order
+		Swap them
+		END IF
+	END IF
+
+END WHILE
+
+END
+Mayumi.txt
+Open with Google Docs
+Displaying Mayumi.txt.
