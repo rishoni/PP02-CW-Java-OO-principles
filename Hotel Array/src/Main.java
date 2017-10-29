@@ -126,6 +126,10 @@ public class Main {
 		 }
 	}
 	
+	/**
+	 * This api is to view the Room details of passed roomNo
+	 * @param roomNo
+	 */
 	public static void view(int roomNo){
 		for(int i=0; i< room.length;i++){
 			if(room[i].getCustomer().equals("EMPTY")){
@@ -136,6 +140,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * This api is to delete a room based on passed params
+	 * @param roomRecep
+	 * @param roomNo
+	 * @param sc
+	 */
 	public static void delete(Room roomRecep[], int roomNo,Scanner sc){
 		System.out.println("Enter the room number to delete customer :");
 		roomNo = sc.nextInt();
@@ -147,6 +157,12 @@ public class Main {
 		}
 	}
 		
+	/**
+	 * This api shows the empty rooms
+	 * @param roomRecep
+	 * @param Customer
+	 * @param roomNo
+	 */
 	public static void empty(Room roomRecep[],String Customer,int roomNo){
 		for(int i=0;i<roomRecep.length;i++){
 			if(roomRecep[i].getCustomer().equals("EMPTY")){
@@ -155,6 +171,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * This api is to find the room(s) of an existing customer
+	 * @param roomRecep
+	 * @param sc
+	 * @param Customer
+	 */
 	public static void find(Room roomRecep[],Scanner sc,String Customer){
 		System.out.println("Enter the name of the Customer :");
 		Customer = sc.next();
@@ -165,6 +187,11 @@ public class Main {
 			
 		}
 	}
+	
+	/**
+	 * This api is to add/store the rooms(for entery of the new rooms)
+	 * @param roomRecep
+	 */
 	public static void save(Room roomRecep[]){
 		System.out.print("Store program array data into a plain text file");
 		System.out.println();
@@ -189,6 +216,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * It loads all the Rooms from a file(txt file)
+	 * @param roomRecep
+	 */
 	public static void load(Room roomRecep[]){
 		System.out.print("Load program data back from the file into the array.");
 		System.out.println();
@@ -234,6 +265,9 @@ public class Main {
 
 	}
 	
+	/**
+	 * Comparator, To compare the rooms
+	 */
 	public static Comparator<Room> NewComparator = new Comparator<Room>() {
 		public int compare(Room obj1, Room obj2){
 			

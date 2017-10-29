@@ -90,6 +90,13 @@ public class CW2 {
 		}
 	}
 	
+	/**
+	 * This api is assign a room to a customer
+	 * @param hotelRecep
+	 * @param room
+	 * @param Customer
+	 * @param sc
+	 */
 	private static void add(String hotelRecep[],int room,String Customer,Scanner sc){
 		System.out.println("Enter the room number :");
 		room = sc.nextInt();
@@ -100,6 +107,12 @@ public class CW2 {
 		
 	}
 	
+	/**
+	 * This api shows all the rooms with it's status(EMPTY/Occupied)
+	 * @param hotelRecep
+	 * @param Customer
+	 * @param room
+	 */
 	private static void view(String hotelRecep[],String Customer,int room){
 		for(int i=0;i<hotelRecep.length;i++){
 			if(hotelRecep[i].equals("EMPTY") ){
@@ -111,6 +124,10 @@ public class CW2 {
 		}
 	}
 	
+	/**
+	 * It shows the room numbers which are in empty state
+	 * @param hotelRecep
+	 */
 	private static void empty(String hotelRecep[]){
 		for(int i = 0;i<hotelRecep.length;i++){
 			if(hotelRecep[i].equals("EMPTY")){
@@ -119,6 +136,13 @@ public class CW2 {
 		}
 	}
 	
+	/**
+	 * This is to clear a room details
+	 * @param hotelRecep
+	 * @param Customer
+	 * @param room
+	 * @param sc
+	 */
 	private static void delete(String hotelRecep[],String Customer,int room,Scanner sc){
 		System.out.println("Enter the room number to clear the room details :");
 		room = sc.nextInt();
@@ -131,6 +155,12 @@ public class CW2 {
 		}
 	}
 	
+	/**
+	 * It finds/shows the room details based on customer detail(s)
+	 * @param hotelRecep
+	 * @param Customer
+	 * @param sc
+	 */
 	private static void find(String hotelRecep[],String Customer,Scanner sc){
 		System.out.println("Enter the name of the customer to view details :");
 		Customer =sc.next();
@@ -141,6 +171,10 @@ public class CW2 {
 		}
 	}
 	
+	/**
+	 * Writes all the hotel details in a txt file
+	 * @param hotelRecep
+	 */
 	private static void save(String hotelRecep[]){
 		System.out.print("Store program array data into a plain text file");
 		System.out.println();
@@ -165,6 +199,10 @@ public class CW2 {
 		}
 	}
 
+	/**
+	 * This api is to load hotel details from a txt file
+	 * @param hotelRecep
+	 */
 	private static void load(String hotelRecep[]){
 		System.out.print("Load program data back from the file into the array.");
 		System.out.println();
@@ -210,6 +248,10 @@ public class CW2 {
 
 	}
 	
+	/**
+	 * this api is to sort the customers based on their names
+	 * @param hotelRecep
+	 */
 	 private static void sort( String hotelRecep[]){ 
 	       Arrays.sort(hotelRecep); 
 	  
