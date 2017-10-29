@@ -1,24 +1,29 @@
 package Hotel;
 
 public class Hotelroom {
+	
+	//Instance variables
 	String Customer;
 	int RoomID;
 	
-	
+	//This method to get name
 	public String getCustomerName(){
 		
     return Customer;
 	}
 	
+	//This method to get room id
 	public int getRoomID(){
 		
 	return RoomID;	
 	}
 	
+	//This method to set customer name
     public void setCustomerName(String name){
     	this.Customer = name;
     }
-    
+
+	//This method to set room id    
     public void setRoomID(int number){
     	this.RoomID = number;
     	
