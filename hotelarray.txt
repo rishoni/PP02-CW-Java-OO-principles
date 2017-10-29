@@ -1,0 +1,264 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+public class Hotelproject {	
+
+   
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String hotelroomname;
+        
+        //declaring room number
+        int roomnumber = 1;
+        
+        //creating room array
+        String[] hotelroom = new String[11];
+        
+         initialise(hotelroom);   
+
+        while ( roomnumber  < 11 )
+        {
+        	
+        	//invoking user menu
+        	System.out.println("\n");
+        	System.out.println("*************************************");
+        	System.out.println("Welcome to hotel Amaya Reef");
+        	System.out.println("*************************************");
+        	System.out.println("Enter your Selection");      
+        	System.out.println();
+        	System.out.println("E: Display empty rooms");
+			System.out.println("D: Delete customer from room");
+			System.out.println("S: Store data");
+			System.out.println("L: Load program");
+			System.out.println("O: Sort customers");
+			System.out.println("A: Add customer to a room");
+			System.out.println("V: View all rooms");
+			System.out.println("X: Exit the program");
+
+			//getting user input for method executions
+            String inputletter = input.next();
+            
+            //Display - empty rooms
+          if (inputletter.equalsIgnoreCase("E")){
+        	  System.out.println("Displaying Empty rooms :");
+                 for (int x = 1; x < 11; x++ ){
+                	 if (hotelroom[x].equals("-"))System.out.println("Room " + x + " is EMPTY");
+                 }
+          }
+          
+          //adding customer to room
+          if (inputletter.equalsIgnoreCase("A")){
+          System.out.println("Enter room number (1-10) or Q to exit the program:" );
+          roomnumber = input.nextInt();
+          System.out.println("Enter a customer name " + roomnumber +" :" ) ;
+          hotelroomname = input.next().toUpperCase();
+          hotelroom[roomnumber] = hotelroomname;
+          }
+          
+          //removing customer from room
+          if (inputletter.equalsIgnoreCase("D")){
+          System.out.println("Enter room number to delete the customer: (1-10)" );
+          roomnumber = input.nextInt();
+          hotelroom[roomnumber] = "-" ;
+          System.out.println("System Updated");
+          }
+          
+          //find room
+          if (inputletter.equalsIgnoreCase("F")){
+               find(hotelroom);
+          }
+          
+          //program exit
+          if (inputletter.equalsIgnoreCase("X")){
+              System.out.println("Thank you for usuing our program");
+               System.exit(0);
+          }
+           
+          //view all rooms
+          if (inputletter.equalsIgnoreCase("V")){
+        	  System.out.println("View All Rooms :");
+              for (int x = 1; x < 11; x++ ){
+            	  if(hotelroom[x] != "-"){
+            		  System.out.println("Room " + x + " occupied by " + hotelroom[x]);
+            }else{
+        	   System.out.println("Room " + x + " is EMPTY");
+           }
+          }              
+         }
+          
+          //store room data
+         if (inputletter.equalsIgnoreCase("S")){
+              storedata(hotelroom);
+         } 
+         
+         //load room data from file
+         if (inputletter.equalsIgnoreCase("L")){
+             loaddata(hotelroom);
+        } 
+         
+         //arrange rooms in order
+        if (inputletter.equalsIgnoreCase("O")){
+               alphabaticalorder(hotelroom);
+          }
+          
+        }
+    }
+    
+
+//method for arrange rooms in order
+private static void alphabaticalorder(String hotel[]) 
+    {
+        List<String> orderedrooms = new ArrayList<>();
+	String temp;
+	
+	//sorting rooms
+	for (int i = 0; i < 11; i++) 
+        {
+            for (int j = i + 1; j < 11; j++) 
+            {
+		if (hotel[i] != null) 
+                    {
+			if (hotel[i].compareTo(hotel[j]) > 0) 
+                            {
+				temp = hotel[i];
+				hotel[i] = hotel[j];
+				hotel[j] = temp;
+                            }
+                    }
+            }
+
+	}
+	
+	//displaying the result
+	System.out.println("Names in alphabetical order : ");
+	for (int i = 0; i < 11 - 1; i++) 
+        {
+            if (hotel[i] != null) 
+            {
+                if (!hotel[i].equals("-")) 
+                {
+		orderedrooms.add(hotel[i]);
+		}
+		
+
+        }
+	}
+	orderedrooms.add(hotel[(11) - 1]);
+        orderedrooms.stream().forEach((name) -> 
+            {
+            System.out.println(name);
+            }
+            );
+    }
+
+//initialization
+private static void initialise( String hotelRef[] ) {
+	for(int x = 1 ; x < 11 ; x++){            
+		hotelRef[x] = "-"; 
+        }
+}
+
+//find room method
+ private static void find(String hotel[])
+    {
+    try
+        {
+            Scanner input = new Scanner(System.in);   
+            System.out.println("Enter customer name for room:" );
+            String consumersname;
+            consumersname = input.next();  //stores name they enter as consumers name
+            for (int x = 1; x < 11; x++ )
+            {
+            	//prompting the result
+                if (hotel[x].equalsIgnoreCase(consumersname))
+                   System.out.println("Room " + x + " is occupied by "+hotel[x]);
+            }
+        }
+        catch (Exception e )
+        {
+        	//prompt for wrong input
+            JOptionPane.showMessageDialog(null, "The input is wrong Please enter again.");
+        }   
+    }
+       
+ //method for storing in to a file
+ public static void storedata(String hotelroom[])
+    {
+	 try { 
+         PrintWriter print = new PrintWriter("hotelReception.txt");  //file location             
+         if(hotelroom.length <= 0){                
+      	   System.out.println("No records to write!");                
+      	    
+         }             
+         for (int i=1; i<hotelroom.length ; i++){               
+      	   print.println(hotelroom[i]);  //printing the room data to the file            } 
+         }
+         print.close(); 
+     } 
+	 //exception handling
+     catch (Exception e) 
+      { 
+          e.printStackTrace(); 
+          System.out.println("File Not Found Exception!"); 
+      } 
+	 System.out.println("Data Saved Successfully");
+		
+	}
+ 
+ //method for loading data from file
+ private static void loaddata(String[] hotelroom) {
+	 System.out.print("Load program data back from the file into the array.");
+		System.out.println();
+		
+		File hotelfile = new File("hotelReception.txt");
+		BufferedReader br = null;
+		FileReader fr = null;
+		
+		try{
+			fr = new FileReader(hotelfile);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(hotelfile));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+		}catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+		}
+ 	}
+        
+        
+    }
+    
+
+hotelprogram.txt
+Open with Google Docs
+Displaying Mayumi.txt.
